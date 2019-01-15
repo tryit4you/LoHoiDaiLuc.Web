@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Trang quản lý trang";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="~/Assets/Admin/dist/js/controller/pageController.js"></script>
+}
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <a href="/Admin/Page/Post" class="btn btn-success"><i class="fa fa-plus"> </i>Thêm mới</a>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="form-group form-inline">
+            <input type="text" name="txtSearch" value="" id="txtSearch" placeholder="Nhập tên" class="form-control" />
+            <input type="submit" name="search" value="Tìm kiếm" id="btn-Search" class="btn btn-primary" />
+            <select id="txtSelectlist" name="cateName" data-val="true" class="form-control">
+                <option value="">Tất cả</option>
+                <option value="1">Kích hoạt</option>
+                <option value="0">Khóa</option>
+            </select>
+            <a class="btn btn-default" id="btn-refresh"><i class="fa fa-refresh"></i></a>
+            <button class="btn btn-danger" id="btn-Deletemulti"><i class="fa fa-trash"></i>Xóa</button>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><label><input type="checkbox" name="selectAll" value="" id="selectAll" />Chọn tất cả</label></th>
+                <th>Tên trang</th>
+                <th>Trạng thái</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody id="tbData"></tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="pagination" id="pagination">
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <p>Trang <mark><span id="currentpage"></span></mark> tổng số <mark><span id="totalpage"></span></mark> trang</p>
+            <p><span id="row_item"></span> -bảng ghi</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script id="data-template" type="x-tmpl-mustache">
+    <tr>
+        <td><input type="checkbox" name="selectAll" class="selectedItem" data-id="{{ID}}" value="" /></td>
+        <td>{{Name}}</td>
+
+        <td>{{{Status}}}</td>
+        <td>
+            <a href="#" class="browser" data-id="{{ID}}"><i class="fa fa-globe fa-2x"></i></a>
+            <a href="/Admin/Page/Put?id={{ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o"></i></a>
+            <button class="btn btn-danger btn-delete" data-id="{{ID}}"><i class="fa fa-window-close-o"></i></button>
+        </td>
+    </tr>
+</script>
+
+
+<div class="modal fade" id="modalBrowser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="brow modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span id="modal-title"></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <div id="contentBrowser">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary btnBrowser">Chỉnh sửa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

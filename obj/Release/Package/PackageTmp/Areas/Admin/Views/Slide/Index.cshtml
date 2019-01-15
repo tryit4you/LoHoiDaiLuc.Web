@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "<i class='fa fa-sliders'> </i>" + " - Trang quản lý Slide";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="~/Assets/Admin/dist/js/controller/slideController.js"></script>
+    <script>
+
+        var editor = CKEDITOR.replace('txtContent', {
+            customConfig: '/Assets/Admin/dist/js/plugins/ckeditor/config.js'
+        });
+        $(document).ready(function () {
+            $('#checkStatus').prop('checked', true);
+        });
+    </script>
+}
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <a href="/Admin/Slide/Post" class="btn btn-success"><i class="fa fa-plus"> </i>Thêm mới</a>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="form-group form-inline">
+            <input type="text" name="txtSearch" value="" id="txtSearch" placeholder="Nhập tên" class="form-control" />
+            <input type="submit" name="search" value="Tìm kiếm" id="btn-Search" class="btn btn-primary" />
+            <a class="btn btn-default" id="btn-refresh"><i class="fa fa-refresh"></i></a>
+            <button class="btn btn-danger" id="btn-Deletemulti"><i class="fa fa-trash"></i>Xóa</button>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><label><input type="checkbox" name="selectAll" value="" id="selectAll" />Chọn tất cả</label></th>
+                <th>Tiêu đề </th>
+                <th>Hình ảnh</th>
+                <th>Thứ tự </th>
+     
+                <th>Nội dung</th>
+                <th>Trạng thái</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody id="tbData"></tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="pagination" id="pagination">
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <p>Trang <mark><span id="currentpage"></span></mark> tổng số <mark><span id="totalpage"></span></mark> trang</p>
+            <p><span id="row_item"></span> -bảng ghi</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script id="data-template" type="x-tmpl-mustache">
+    <tr>
+        <td><input type="checkbox" name="selectAll" class="selectedItem" data-id="{{ID}}" value="" /></td>
+        <td>{{Name}}</td>
+        <td><img height="100" src="{{Image}}" /></td>
+        <td><input type="number" name="DisplayOrder" style="border:none;width:40px" class="displayOrderInput" data-id="{{ID}}" value="{{DisplayOrder}}" /></td>
+        <td width="25%">{{{Content}}}</td>
+        <td>{{{Status}}}</td>
+        <td>
+            <a href="/Admin/Slide/Put?id={{ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o"></i></a>
+            <button class="btn btn-danger btn-delete" data-id="{{ID}}"><i class="fa fa-window-close-o"></i></button>
+        </td>
+    </tr>
+</script>
+
+
+<div class="modal fade" id="modalDemo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="brow modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span id="modal-title"></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <div id="contentBrowser">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary btnBrowser">Chỉnh sửa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

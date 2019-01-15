@@ -1,0 +1,32 @@
+﻿@model  LoHoiDaiLuc.Web.Models.FooterViewModel
+
+@{
+    ViewBag.Title = "Quản lý nội dung footer";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Assets/Admin/dist/css/footerStyle.css" rel="stylesheet" />
+@section jsFooter{
+    <script src="~/Assets/Admin/dist/js/controller/footerController.js"></script>
+
+}
+
+<div class="row">
+    <a href="/Admin/Footer/Put?id=@Model.ID">Chỉnh sửa nội dung</a>
+</div>
+
+<div class="row">
+
+    @if (Model != null)
+    {
+        <div class="footer-head">
+            @Html.Raw(Model.Content)
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Dữ liệu rỗng!</strong> Chưa khởi tạo nội dung.
+        </div>
+    }
+</div>

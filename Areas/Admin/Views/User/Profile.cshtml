@@ -1,0 +1,208 @@
+﻿@using LoHoiDaiLuc.Web.Models.Identity;
+
+@{
+    var aspNetUser = (AspNetUser)Session[LoHoiDaiLuc.Common.CommonConstants.USER_SESSION];
+}
+@{
+    ViewBag.Title = "Trang thông tin tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+
+    <script src="~/Assets/Admin/dist/js/controller/profileController.js"></script>
+
+}
+<style>
+    #Avatar{
+        max-width:250px;
+    }
+    .userProfile li {
+        list-style-type: none;
+        padding: 15px 0px;
+        border-bottom: 1px solid #ededed;
+        font-size: 1.2em;
+    }
+
+    .Avatar {
+        width: 215px;
+        height: 215px;
+        box-shadow: 0px -1px 6px 3px gainsboro;
+    }
+
+    .btn-success {
+        margin: 10px 55px;
+    }
+
+    a#changePassword {
+        margin-top: 20px;
+        margin-bottom: 0px;
+        display: block;
+    }
+
+    .Avatar-Container {
+        position: relative;
+        display: block;
+    }
+
+    #btnChangeImage {
+        position: absolute;
+        top: 72%;
+        left: 0%;
+        color: #4a74d8;
+        z-index: 2;
+        background-color: rgba(255, 255, 255, 0.5);
+        border: none;
+    }
+
+        #btnChangeImage:hover .fa-refresh {
+            transform: rotate(360deg);
+            transition: 1s;
+        }
+</style>
+<div class="row ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Thông tin tài khoản</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-3 col-sm-3">
+                    <div class="Avatar-Container">
+                        <img class="img-circle " id="Avatar"
+                             src="@aspNetUser.Avatar"
+                             alt="@aspNetUser.UserName">
+                        <a href="#" class="btn btn-success" id="btnChangeImage"><i id="icon" class="fa fa-refresh"></i> Đổi Avatar</a>
+                        <a href="#" class="btn btn-primary" id="btnUpdate"><i id="icon" class="fa fa-upload"></i> Cập nhật</a>
+                    </div>
+                </div>
+                <div class="col-xs-8 col-sm-8 ">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3><strong>@aspNetUser.UserName</strong></h3>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" data-id="@aspNetUser.Id" id="changePassword">Đổi mật khẩu?</a>
+                        </div>
+                    </div>
+                    <hr />
+                    <ul class="userProfile">
+                        <input type="hidden" id="txtID" value="@aspNetUser.Id" />
+                        <li><strong>Tên người dùng: </strong> @aspNetUser.UserName</li>
+
+                        <li><strong>Tên tài khoản: </strong> @aspNetUser.UserName</li>
+
+                       @*@{
+                            var input = aspNetUser.Birthday
+                            var output = string.Format("{0:d/M/yyyy}", input);
+                        }
+                        <li><strong>Ngày sinh: </strong>@output</li>*@
+
+                        <li><strong>Email: </strong>@aspNetUser.Email</li>
+
+                        <li><strong>Điện thoại: </strong>@(aspNetUser.PhoneNumber==null?"Không có":aspNetUser.PhoneNumber)</li>
+
+                        <li><strong>Ngày đăng ký: </strong><span id="createDate"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a href="#" id="btnBack" class="btn btn-primary"><i class="fa fa-reply"> Quay lại</i></a>
+            <span class="pull-right">
+                <a href="#" id="btnEdit" data-id="@aspNetUser.Id" class="btn btn-default"><i class="fa fa-pencil-square-o"> Chỉnh sửa</i></a>
+                <a href="#" id="btnUpdate" class="btn btn-primary"><i class="fa fa-upload"> Cập nhật</i></a>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span id="user-title">Chỉnh sửa tài khoản</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="frmSaveData">
+                    <input type="hidden" id="txtEId">
+                    <div class="form-group">
+                        <label for="txtEFullName">Họ tên</label>
+                        <input type="text" class="form-control" name="fullName" id="txtEFullName">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEUserName">Tên tài khoản</label>
+                        <input type="text" class="form-control" name="userName" id="txtEUserName">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Ngày sinh</label>
+                        <div class='input-group date'>
+                            <input type='text' class="form-control datetimepicker" id="txtEBirthday" placeholder="dd/mm/yyyy" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEEmail">Email</label>
+                        <input type="email" class="form-control" name="Email" id="txtEEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEPhone">Số điện thoại</label>
+                        <input type="text" class="form-control" name="phoneNumber" id="txtEPhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEAddress">Địa chỉ</label>
+                        <input type="text" class="form-control" name="Address" id="txtEAddress">
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="ckEStatus" />Kích hoạt</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalChangePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span id="user-title">Đổi mật khẩu</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="frmSavePass">
+                    <div class="form-group">
+                        <label for="txtPassword">Mật khẩu hiện tại</label>
+                        <input type="password" class="form-control" name="CurrentPassword" id="txtCurrentPassword">
+                        <span class="validate"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtNewPassword">Mật khẩu mới</label>
+                        <input type="password" class="form-control" name="NewPassword" id="txtNewPassword">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtCofirmPassword">Xác nhận mật khẩu</label>
+                        <input type="password" class="form-control" name="ConfirmPassword" id="txtCofirmPassword">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btnSavePass">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>

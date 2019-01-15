@@ -1,0 +1,47 @@
+﻿@model LoHoiDaiLuc.Web.Models.ContactDetailViewModel
+
+
+@if (Model != null)
+{
+    <div class="header-contact">
+        <ul>
+            <li class="address">
+                <p>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i> @Model.Address
+                </p>
+            </li>
+            <li class="phone">
+                <p>
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    @Model.Phone
+                </p>
+            </li>
+            <li class="email">
+                <p>
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    @Model.Email
+                </p>
+            </li>
+
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+
+}
+else
+{
+    <div class="header-contact">
+        <ul>
+            <li class="address">
+                <p>
+                    <i class="fa fa-bandcamp" aria-hidden="true"></i> Chưa cập nhật thông tin liên hệ
+                </p>
+            </li>
+            
+
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+
+
+}

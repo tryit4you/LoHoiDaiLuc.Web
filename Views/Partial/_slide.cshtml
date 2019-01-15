@@ -1,0 +1,69 @@
+﻿@model IEnumerable<LoHoiDaiLuc.Web.Models.SlideViewModel>
+
+@{
+    var active = "active";
+    var i = 0;
+    var j = 0;
+    var k = Math.Ceiling((double)Model.Count()/2);
+}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        @foreach (var slide in Model)
+        {
+            if (i == 2  )
+            {
+
+                <div class="item @active">
+                    <img src="@slide.Image">
+                    <div class="carousel-caption">
+                        <div class="caption-container">
+                            <h3 class="hvr-underline-from-center">@slide.Name</h3>
+                            <p>@Html.Raw(slide.Content)</p>
+                        </div>
+
+                    </div>
+                </div><!-- End Item -->
+            }
+            else
+            {
+                <div class="item">
+                    <img src="@slide.Image">
+                    <div class="carousel-caption">
+                        <div class="caption-container">
+                            <h3 class="hvr-underline-from-center">@slide.Name</h3>
+                            <p>@Html.Raw(slide.Content)</p>
+                        </div>
+                    </div>
+                </div><!-- End Item -->
+            }
+            i++;
+        }
+
+
+    </div><!-- End Carousel Inner -->
+
+    <ul class="list-group col-sm-4 carousel-controls-group">
+        @foreach (var slide in Model)
+        {
+            <li data-target="#myCarousel" data-slide-to="@(j+k)" class="list-group-item @(j==0?active:"");">
+                <a href="#">
+                    <h4> @slide.Name</h4> <small>@Html.Raw(slide.Description)</small>
+                </a>
+            </li>
+            j++;
+        }
+    </ul>
+
+
+    <div class="carousel-controls">
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+
+</div><!-- End Carousel -->

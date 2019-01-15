@@ -1,0 +1,148 @@
+﻿.row {
+    margin: 0px;
+    padding: 0px;
+}
+
+.error {
+    color: #f93131;
+}
+
+#txtContent {
+    display: inline-block;
+    width: 137px;
+    height: 92px;
+    overflow: hidden;
+}
+
+#btnSelectImage {
+    margin-top: 15px;
+}
+
+#txtImage {
+    height: 150px;
+    width: auto;
+}
+
+#txtTitle {
+    width: 20%;
+    text-overflow: ellipsis;
+}
+
+#txtImg {
+    display: block;
+    height: 150px;
+    width: auto;
+    max-width:200px;
+    background: #f1f1f1;
+    border: 3px solid #ebebeb;
+    border-radius: 4px;
+}
+
+#validateUser, #validateMenu {
+    color: #f93131;
+}
+
+.validate,.validateEmail {
+    color: #f93131;
+}
+
+.pagination {
+    margin: 0px;
+}
+
+.Avartar {
+    position: relative;
+}
+
+.text-avartar {
+    position: absolute;
+    text-align: center;
+}
+
+.treeview-menu > li > a {
+    padding: 10px 12px;
+    display: block;
+    font-size: 14px;
+}
+
+    .treeview-menu > li > a:hover {
+        background-color: #566a7c;
+    }
+
+#img-Avatar {
+    width: 150px;
+}
+.label-success, .label-danger {
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-style: italic;
+}
+#modalEbook .modal-body {
+    height: 500px;
+    overflow: scroll;
+}
+
+.ebookName, .notifiName {
+    width: 20%;
+}
+
+.ebookauthor {
+    width: 15%;
+}
+
+.btn-AddUserGroup {
+    opacity: 0;
+}
+
+#listUserVisible tr:hover .btn-AddUserGroup {
+    opacity: 1;
+    transition: .5s;
+}
+
+.Authorize {
+    padding: 0px 15px;
+}
+
+    .Authorize li {
+        list-style-type: none;
+        border-bottom: 1px solid #dadada;
+        padding: 10px 5px;
+    }
+#new-author{
+    width:15%;
+}
+#new-hotstatus{
+    width:15%;
+}
+a.browser {
+    display: inline-block;
+    padding: 5px;
+}
+@media (min-width: 768px) {
+    .brow {
+        width: 1024px;
+    }
+}
+#contentBrowser {
+    text-align: justify;
+    line-height: 1.5em;
+    font-size: 1em;
+}
+.delete {
+    background: #f78c8c;
+}
+td#displayField {
+    text-align: center;
+}
+section.content-header h1 {
+    padding: 10px;
+    border: 1px solid green;
+    background: #0981ad;
+    color: white;
+
+}
+section.content-header {
+    text-align: center;
+    margin: 0px;
+}

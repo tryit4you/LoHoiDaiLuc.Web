@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var keyword = ViewBag.Keyword;
+    var productData = (IEnumerable<LoHoiDaiLuc.Web.Models.ProductViewModel>)ViewData["ProductModel"];
+    var postData = (IEnumerable<LoHoiDaiLuc.Web.Models.PostViewModel>)ViewData["PostModel"];
+}
+
+@section content_right{
+    @{ Html.RenderAction("getNewsTop", "Post");}
+    @{ Html.RenderAction("GetNewProduct", "Product");}
+    <div class="facebook-page">
+        <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-width="350" data-height="222" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+    </div>
+
+}
+
+@if (productData != null)
+{
+    <div class="alert-info search-alert">Tìm kiếm cho từ khóa " <strong>@keyword</strong> " - Có: @productData.Count() kết quả</div>
+    foreach (var product in productData)
+    {
+        var url = "/lo-hoi/" + product.Alias + "-" + product.ID;
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4 product-items">
+            <div class="card">
+                <a href="@url" title="@product.Name"><img src="@product.Image" alt="@product.Name" style="width:100%"></a>
+                <div class="product-detail">
+                    <h4 @product.Name><b><a href="@url">@product.Name</a></b></h4>
+                    <p>@product.Description</p>
+                </div>
+            </div>
+
+        </div>
+
+    }
+}
+else if (postData != null)
+{
+    <div class="alert-info search-alert">Tìm kiếm cho từ khóa " <strong>@keyword</strong> " - Có: @postData.Count() kết quả</div>
+    foreach (var post in postData)
+    {
+        var url = "/bai-viet/" + post.Alias + "-" + post.ID;
+        <div class="news-items">
+            <div class=" col-md-3 col-sm-3">
+                <a href="@url"><img src="@post.Image" alt="@post.Name" /></a>
+            </div>
+            <div class="col-md-9 col-sm-9">
+                <a href="@url"><h1>@post.Name</h1></a>
+                <span class="news-infor">@post.CreatedDate</span>
+                <p class="news-desc">
+                    @post.Description
+                </p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    }
+
+}
+else
+{
+    <div class="alert-info search-alert">không có kết quả tìm kiếm</div>
+}
+

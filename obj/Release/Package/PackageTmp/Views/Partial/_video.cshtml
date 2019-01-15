@@ -1,0 +1,21 @@
+﻿@model LoHoiDaiLuc.Web.Models.VideoViewModel
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    <div class="header">
+        <h1> @Model.Name</h1>
+    </div>
+    <div class="video">
+
+    <iframe width="100%" height="auto" src="https://www.youtube.com/embed/@Model.Code" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+}
+else
+{
+
+    <div class="header">
+        <h1> Chưa cập nhật video</h1>
+    </div>
+}

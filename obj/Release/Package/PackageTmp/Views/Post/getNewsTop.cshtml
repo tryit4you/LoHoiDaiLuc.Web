@@ -1,0 +1,18 @@
+﻿@model IEnumerable<LoHoiDaiLuc.Web.Models.PostViewModel>
+
+<div class="news-top">
+    <div class="news-top-header">
+        <h1>Bài viết mới nhất</h1>
+    </div>
+    <div class="news-top-items">
+        <ul>
+            @foreach (var post in Model)
+            {
+                var url = "/bai-viet/"  + post.Alias + "-" + post.ID;
+
+                <li title="@post.Name"><a href="@url">@post.Name</a></li>
+            }
+
+        </ul>
+    </div>
+</div>

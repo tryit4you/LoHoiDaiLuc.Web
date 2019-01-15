@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Trang chủ";
+       
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var MetaKeyword = (LoHoiDaiLuc.Models.Models.SystemConfig)ViewBag.MetaKeyword;
+    ViewBag.MetaKeyword = MetaKeyword.ValueString;
+
+    var MetaDescription = (LoHoiDaiLuc.Models.Models.SystemConfig)ViewBag.MetaDescription;
+    ViewBag.MetaDescription = MetaDescription.ValueString;
+}
+@section content_right{
+
+
+    @{ Html.RenderAction("getNewsTop", "Post");}
+    @{ Html.RenderAction("GetNewProduct", "Product");}
+    <div class="facebook-page">
+        <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-width="350" data-height="222" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+    </div>
+    <div class="video">
+     @{ Html.RenderAction("_video","Partial");}    
+    </div>
+
+}
+<div class="content-left">
+    <div class="infor">
+        <div class="col-md-12">
+            <div class="lead text-center infor-head">Chúng tôi là ai?</div>
+            <div class="infor-content">
+                Công ty ĐẠI LỰC  là doanh nghiệp được thành lập từ đội ngũ kỹ sư,
+                công nhân cơ khí, Nhiệt Điện Lạnh của các trường ĐHBK, SPKT. Chúng
+                tôi có bề dày  kinh nghiệm  trong việc đảm nhận các dự án, công
+                trình nồi hơi - lò hơi lớn trong cả nước.
+                Hiệu quả về kinh doanh là thế mạnh của chúng tôi.
+
+            </div>
+        </div>
+
+    </div>
+    <div class="howdo">
+
+        <div class="howdo-content">
+            <div class="col-md-6">
+                <div class="row howdo-content-items">
+                    <a href="/trang?p=dich-vu" class="hvr-float-shadow">
+                        <img class="img-circle img-thumbnail img-responsive" src="/Assets/Clients/images/boiler-design.png" alt="Tư vấn, thiết kế, lắp đặt" />
+                    </a>
+                    <h1><a href="/trang?p=dich-vu"> Tư vấn, thiết kế, lắp đặt</a></h1>
+                    <p>Công ty Đại Lực đảm nhận tư vấn,  khảo sát,  thiết kế và xây lắp các hệ thống nồi hơi</p>
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="row howdo-content-items">
+                    <a href="/trang?p=dich-vu" class="hvr-float-shadow">
+                        <img class="img-circle img-thumbnail img-responsive" src="~/Assets/Clients/images/boiler-maintan.png" alt="Bảo trì, bảo dưỡng" />
+                    </a>
+                    <h1><a href="/trang?p=dich-vu">Bảo trì, bảo dưỡng</a></h1>
+                    <p>Đảm nhận các  hợp đồng bảo trì, bảo dưỡng sau thời gian bảo hành các thiết bị lò hơi, mạng nhiệt khác</p>
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="row howdo-content-items">
+                    <a href="/trang?p=dich-vu" class="hvr-float-shadow">
+                        <img src="~/Assets/Clients/images/boiler-repair-update.png" class="img-circle img-thumbnail img-responsive" alt="Sửa chữa và cải tiến" />
+
+                    </a>
+                    <h1><a href="/trang?p=dich-vu">Sửa chữa và cải tiến</a></h1>
+                    <p>Sửa chữa, cải tạo nâng cao hiệu suất  nồi hơi, xây lại lò và các thiết bị phụ trợ với sự chuyên nghiệp cao</p>
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="row howdo-content-items">
+                    <a href="/trang?p=dich-vu" class="hvr-float-shadow"><img src="~/Assets/Clients/images/boiler-hoa-chat.png" class="img-circle img-thumbnail img-responsive" alt="Xử lý hóa chất nồi hơi" /></a>
+                    <h1><a href="/trang?p=dich-vu">Xử lý hóa chất nồi hơi</a></h1>
+                    <p>xử lý hóa chất, tẩy cáu cặn, làm sạch bề mặt trao đổi nhiệt của thiết bị để kéo dài tuổi thọ cho nồi hơi</p>
+
+                </div>
+
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="product">
+        <div class="header">
+            <h1>Sản phẩm</h1>
+            <hr />
+        </div>
+        <div class="product-content">
+            <div class="row">
+                @{ Html.RenderAction("productAtHome", "Product");}
+            </div>
+        </div>
+    </div>
+    <div class="news">
+        <div class="titl">
+            <div class="row">
+                <h1>Tin tức</h1>
+                <a href="/tin-tuc-tu-lieu" class="pull-right">Xem thêm tin tức <i class="fa fa-angle-double-right"></i></a>
+            </div>
+                   </div>
+        @{ Html.RenderAction("getPostAtHome", "Post");}
+    </div>
+
+</div>

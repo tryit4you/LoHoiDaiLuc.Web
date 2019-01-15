@@ -1,0 +1,139 @@
+﻿@model LoHoiDaiLuc.Web.Models.ProductCategoryViewModel
+@{
+    ViewBag.Title = "Trang quản trị danh mục sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section jsFooter{
+    <script src="~/Assets/Admin/dist/js/controller/productCategoryController.js"></script>
+}
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <a href="#" class="btn btn-success" id="btnAddNew"><i class="fa fa-plus"> </i>Thêm mới</a>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="form-group form-inline">
+            <input type="text" name="txtSearch" value="" id="txtSearch" placeholder="Nhập tên" class="form-control" />
+            <select id="txtSelectlist" name="cateName" data-val="true" class="form-control">
+                <option  value="2">Tất cả</option>
+                <option value="1">Kích hoạt</option>
+                <option value="0">Khóa</option>
+            </select>
+            <input type="submit" name="search" value="Tìm kiếm" id="btn-Search" class="btn btn-primary" />
+            <a class="btn btn-default" id="btn-refresh"><i class="fa fa-refresh"></i></a>
+            <button class="btn btn-danger" id="btn-Deletemulti" ><i class="fa fa-trash"></i>Xóa</button>
+        </div>
+    </div>
+
+
+</div>
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><label ><input type="checkbox" name="selectAll" value="" id="selectAll"/>Chọn tất cả</label></th>
+                <th>Tiêu đề</th>
+                <th>Danh mục cha</th>
+                <th>Thứ tự hiển thị</th>
+                <th>Ngày tạo</th>
+                <th>Hiển thị trang chủ</th>
+                <th>Trạng thái</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody id="tbData"></tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="pagination" id="pagination">
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <p>Trang <mark><span id="currentpage"></span></mark> tổng số <mark><span id="totalpage"></span></mark> trang</p>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script id="data-template" type="x-tmpl-mustache">
+    <tr>
+        <td><input type="checkbox" name="selectAll" class="selectedItem" data-id="{{ID}}" value="" /></td>
+        <td id="txtTitle"><strong>{{Name}}</strong></td>
+        <td>{{ParentID}}</td>
+        <td><input type="number" name="DisplayOrder" style="border:none;width:40px" class="displayOrderInput" data-id="{{ID}}" value="{{DisplayOrder}}" /></td>
+        <td>{{CreatedDate}}</td>
+        <td>{{{HomeFlag}}}</td>
+        <td class="btn-active">{{{Status}}}</td>
+        <td>
+            <a href="javascript:void(0);" data-id="{{ID}}" class="btn btn-default btn-edit"><i class="fa fa-pencil"></i></a>
+            <button class="btn btn-danger btn-delete" data-id="{{ID}}"><i class="fa fa-close"></i></button>
+
+        </td>
+    </tr>
+</script>
+
+
+
+<div class="modal fade" id="modalProductCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span id="modal-title"></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="frmSaveData">
+                    <input type="hidden" id="txtId">
+                    <div class="form-group">
+                        <label for="txtName">Tên danh mục</label>
+                        <input type="text" class="form-control" name="productCategoryName" id="txtName">
+                        <span class="validate"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtSeoTitle">Tiêu đề SEO</label>
+                        <input type="text" class="form-control" disabled name="SeoTitle" id="txtSeoTitle">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="Metakeyword">Từ khóa</label>
+                        <input type="text" class="form-control" name="Metakeyword" id="txtMetakeyword">
+                    </div>
+                    <div class="form-group">
+                        <label for="Metadescription">Miêu tả từ khóa</label>
+                        <input type="text" class="form-control" name="Metadescription" id="txtMetadescription">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtCategory">Danh mục cha</label>
+                        <select class="form-control" name="typeName" data-val="true" id="txtParentID"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="displayOrder">Thứ tự hiển thị</label>
+                        <input type="number" class="form-control" name="displayOrder" id="txtDisplayOrder">
+
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="ckStatus" />Kích hoạt</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="ckHomeFlag" />Hiển thị trang chủ</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>

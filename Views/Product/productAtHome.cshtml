@@ -1,0 +1,41 @@
+﻿
+@model IEnumerable<LoHoiDaiLuc.Web.Models.ProductViewModel>
+@using System.Linq
+@{ 
+    var productCategory = (IEnumerable<LoHoiDaiLuc.Web.Models.ProductCategoryViewModel>)ViewBag.ProductCategory;
+    var data = (from product in Model
+                join category in productCategory on product.CategoryID equals category.ID
+                select new
+                {
+                    product.ID,
+                    product.Image,
+                    product.Name,
+                    product.Alias,
+                    product.CreatedDate,
+                    product.Description,
+                    category.cateAlias 
+                }
+                ).ToList();
+}
+@if (Model.Count() == 0)
+{
+    <span class="text-center text-danger">Không có sản phẩm nào</span>
+}
+else
+{
+
+    foreach (var product in data)
+    {
+        var url ="/lo-hoi/"+product.Alias+"-"+product.ID;
+    <div class="col-sm-6 col-md-4 col-lg-3 col-xs-12 mt-4 product-items">
+        <div class="card">
+            <a href="@url" title="@product.Name"><img src="@product.Image" alt="@product.Name" style="width:100%"></a>
+            <div class="product-detail">
+                <h4 @product.Name title="@product.Name"><b><a href="@url">@product.Name</a></b></h4>
+                <p>@product.Description</p>
+            </div>
+        </div>
+
+    </div> 
+    }
+}

@@ -1,0 +1,50 @@
+﻿    @model PagedList.IPagedList<LoHoiDaiLuc.Web.Models.PostViewModel>
+@using PagedList.Mvc
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var category = (LoHoiDaiLuc.Web.Models.PostCategoryViewModel)ViewBag.categoryData;
+
+    ViewBag.Title = category.cateName;
+}
+
+@section content_right{
+    @{ Html.RenderAction("getNewsTop", "Post");}
+    @{ Html.RenderAction("GetNewProduct", "Product");}
+    <div class="facebook-page">
+        <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+    </div>
+}
+    <div class="tintuc">
+        <div class="header-page">
+            <div class="page-navigation">
+                <ul>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><i class="fa fa-angle-double-right"></i></li>
+                    <li><a href="/@category.cateAlias">@category.cateName</a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="tintuc-items-header">
+            <h1>@category.cateName</h1>
+        </div>
+        @foreach (var post in Model)
+    {
+
+        var url = "/bai-viet/" + post.Alias + "-" + post.ID;
+        <div class="tintuc-items">
+            <a href="@url"><img src="@post.Image" alt="@post.Name" /></a>
+            <div class="tintuc-items-desc">
+                <a href="@url" title="@post.Name"><h1>@post.Name</h1></a>
+
+                <i class="fa fa-clock-o">Ngày đăng @(DateTime.Now.Date)</i>
+                <p> @post.Description</p>
+            </div>
+        </div>
+}
+
+
+        <div class="pagedlist">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount</div>
+
+        <div class="pagination">@Html.PagedListPager(Model, page => Url.RouteUrl("tatcabaiviet", new { page }))</div>
+    </div>

@@ -1,0 +1,45 @@
+﻿@model LoHoiDaiLuc.Web.Models.ProductViewModel
+@{
+    ViewBag.Title = Model.Name;
+    ViewBag.MetaKeyword = Model.MetaKeyword;
+    ViewBag.MetaDescription = Model.MetaDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listTags = (IEnumerable<LoHoiDaiLuc.Web.Models.TagViewModel>)ViewBag.ListTags;
+}
+@section content_right{
+    @{ Html.RenderAction("getNewsTop", "Post");}
+    @{ Html.RenderAction("GetNewProduct", "Product");}
+    <div class="facebook-page">
+        <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-width="350" data-height="222" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+    </div>
+}
+<div class="page">
+    <div class="header-page">
+        <div class="page-navigation">
+            <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><i class="fa fa-angle-double-right"></i></li>
+                <li><a href="@Model.Alias-@Model.ID">@Model.Name</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="title">
+            <h1>@Model.Name</h1>
+        </div>
+        @Html.Raw(Model.Content)
+    </div>
+    <div class="tags">
+        @if (listTags != null)
+        {
+
+            foreach (var tag in listTags)
+            {
+                <a href="/tags/@tag.ID">@tag.Name</a>
+            }
+        }
+    </div>
+    <div class="fb-comments" data-href="https://www.facebook.com/LookAtMeWhatDoYouThink" data-width="720" data-numposts="5"></div>
+</div>
+

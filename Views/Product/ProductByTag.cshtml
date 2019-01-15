@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<LoHoiDaiLuc.Web.Models.ProductViewModel>
+@using PagedList.Mvc
+@{
+    /**/
+
+    ViewBag.Title = "Tất cả các sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var category = (IEnumerable<LoHoiDaiLuc.Web.Models.ProductCategoryViewModel>)ViewBag.ProductCategory;
+    var data = (from p in Model
+                join cate in category on p.CategoryID equals cate.ID
+                select new
+                {
+                    p.ID,
+                    cate.cateName,
+                    p.Name,
+                    p.Image,
+                    p.Description,
+                    p.Alias,
+                    cate.cateAlias
+                }).ToList();
+}
+
+
+@section content_right{
+    @{ Html.RenderAction("getNewsTop", "Post");}
+    @{ Html.RenderAction("GetNewProduct", "Product");}
+    <div class="facebook-page">
+        <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+    </div>
+
+}
+@foreach (var product in data)
+{
+  var url =  "/lo-hoi/" + product.Alias + "-" + product.ID;
+
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-4 product-items">
+        <div class="card">
+            <a href="@url" title="@product.Name"><img src="@product.Image" alt="@product.Name" style="width:100%"></a>
+            <div class="product-detail">
+                <h4 @product.Name><b><a href="@url">@product.Name</a></b></h4>
+                <p>@product.Description</p>
+            </div>
+        </div>
+
+    </div>
+    
+
+}
+    <div class="clearfix"></div>
+<div class="pagedlist">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount</div>
+
+<div class="pagination">@Html.PagedListPager(Model, page => Url.RouteUrl("tatcabaiviet", new { page }))</div>

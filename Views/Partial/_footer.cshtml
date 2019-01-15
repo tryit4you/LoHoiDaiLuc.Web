@@ -1,0 +1,15 @@
+﻿@model LoHoiDaiLuc.Web.Models.FooterViewModel
+<div class="footer-head">
+    @if (Model != null)
+    {
+        @Html.Raw(Model.Content)
+    }
+    else
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Dữ liệu rỗng!</strong> Chưa khởi tạo nội dung.
+        </div>
+    }
+
+</div>

@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Quản lý thông tin liên hệ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="~/Assets/Admin/dist/js/controller/feedbackController.js"></script>
+}
+<div class="row">
+
+    <div class="col-md-10">
+        <div class="form-group form-inline">
+            <input type="text" name="txtSearch" value="" id="txtSearch" placeholder="Nhập tên" class="form-control" />
+
+            <input type="submit" name="search" value="Tìm kiếm" id="btn-Search" class="btn btn-primary" />
+            <a class="btn btn-default" id="btn-refresh"><i class="fa fa-refresh"></i></a>
+            <button class="btn btn-danger" id="btn-Deletemulti"><i class="fa fa-trash"></i>Xóa</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><label><input type="checkbox" name="selectAll" value="" id="selectAll" />Chọn tất cả</label></th>
+                <th>Tên </th>
+                <th>Điện thoại</th>
+                <th>Email</th>
+                <th>Ngày gửi</th>
+                <th>Nội dung</th>
+                <th>Trạng thái</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody id="tbData"></tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="pagination" id="pagination">
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <p>Trang <mark><span id="currentpage"></span></mark> tổng số <mark><span id="totalpage"></span></mark> trang</p>
+        </div>
+    </div>
+</div>
+
+<script id="data-template" type="x-tmpl-mustache">
+    <tr>
+        <td><input type="checkbox" name="selectAll" class="selectedItem" data-id="{{ID}}" value="" /></td>
+        <td>{{Name}}</td>
+        <td>{{Phone}}</td>
+        <td>{{Email}}</td>
+        <td>{{CreatedDate}}</td>
+        <td>{{Message}}</td>
+        <td>{{{Status}}}</td>
+        <td>
+            <button class="btn btn-default btn-reply" data-id="{{ID}}"><i class="fa fa-envelope"></i></button>
+            <button class="btn btn-danger btn-delete" data-id="{{ID}}"><i class="fa fa-window-close-o"></i></button>
+        </td>
+    </tr>
+</script>
+
+<!--modal viewdetail-->
+<!--modal create popup-->
+
+<div class="modal fade" id="modalContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span id="modal-title"></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="frmSaveData">
+                    <input type="hidden" id="txtId">
+                    <div class="form-group">
+                        <label for="Name">Tên</label>
+                        <input type="text" class="form-control" name="Name" id="txtName">
+                        <span class="validate"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone">Điện thoại</label>
+                        <input type="tel" class="form-control" name="Phone" id="txtPhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">E-mail</label>
+                        <input type="email" class="form-control" name="Email" id="txtEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="Website">Website</label>
+                        <input type="text" class="form-control" name="Website" id="txtWebsite">
+                    </div>
+                    <div class="form-group">
+                        <label for="Address">Địa chỉ</label>
+                        <input type="text" class="form-control" name="Address" id="txtAddress">
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="ckStatus" />Kích hoạt</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>

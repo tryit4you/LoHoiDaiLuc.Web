@@ -1,0 +1,29 @@
+﻿@model IEnumerable<LoHoiDaiLuc.Models.Models.Post>
+
+@if (Model.Count() == 0)
+{
+    <span class="text-center text-danger">
+        không có tin tức nào!
+    </span>
+}
+else
+{
+
+    foreach (var post in Model)
+    {
+        var url = "/bai-viet/" + post.Alias + "-" + post.ID;
+     <div class="news-items">
+            <div class=" col-md-3 col-sm-3">
+                <a href="@url"><img src="@post.Image" alt="@post.Name" /></a>
+            </div>
+            <div class="col-md-9 col-sm-9">
+                <a href="@url" title="@post.Name"><h1>@post.Name</h1></a>
+                <span class="news-infor">@post.CreatedDate</span>
+                <p class="news-desc">
+                    @post.Description
+                </p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    }
+}

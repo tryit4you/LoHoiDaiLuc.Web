@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNet.Identity
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        @*@if (Request.IsAuthenticated)
+            {
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>@User.Identity.Name</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            }*@
+
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">Quản trị nội dung</li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-gears"></i>
+                    <span>Cấu hình hệ thống</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/Admin/SystemConfig/Index"><i class="fa fa-gear"></i> Quản lý cấu hình</a></li>
+                    <li><a href="/Admin/Footer/Index"><img width="15" src="~/Assets/Admin/dist/img/document-footer_318-48445.jpg" alt="Alternate Text" /> Chỉnh sửa chân trang</a></li>
+                </ul>
+            </li>
+            <li class="active treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Quản lý website</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/Admin/Account/Index"><i class="fa ion-person-stalker"></i> Quản lý tài khoản</a></li>
+                    <li><a href="/Admin/Post/Index"><i class="fa fa-newspaper-o"></i> Quản lý tin tức</a></li>
+                    <li><a href="/Admin/PostCategory/Index"><i class="fa fa-newspaper-o"></i> Danh mục tin tức</a></li>
+                    <li><a href="/Admin/Product/Index"><i class="fa ion-social-buffer"></i> Quản lý sản phẩm</a></li>
+                    <li><a href="/Admin/ProductCategory/Index"><i class="fa ion-social-buffer"></i> Danh mục sản phẩm</a></li>
+                    <li><a href="/Admin/Slide/Index"><i class="fa fa-sliders"></i> Quản lý Slide</a></li>
+                    <li><a href="/Admin/Contact/Index"><i class="fa ion-android-contacts"></i> Thông tin liên hệ</a></li>
+                    <li><a href="/Admin/MenuGroup/Index"><i class="fa ion-grid"></i> Danh mục Menu</a></li>
+                    <li><a href="/Admin/Page/Index"><i class="fa ion-document-text"></i> Quản lý trang</a></li>
+                    <li><a href="#"><i class="fa ion-images"></i> Thư viện ảnh</a></li>
+                    <li><a href="/Admin/Video/Index"><i class="fa ion-ios-videocam"></i> Thư viện video</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

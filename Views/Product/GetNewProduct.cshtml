@@ -1,0 +1,32 @@
+﻿@model IEnumerable<LoHoiDaiLuc.Web.Models.ProductViewModel>
+
+@{
+
+    var category = (IEnumerable<LoHoiDaiLuc.Web.Models.ProductCategoryViewModel>)ViewBag.ProductCategory;
+    var data = (from product in Model
+                join cate in category on product.CategoryID equals cate.ID
+                select new
+                {
+                    product.ID,
+                    product.Name,
+                    product.Alias,
+                    cate.cateAlias,
+                }).ToList();
+
+}
+<div class="news-top">
+    <div class="news-top-header">
+        <h1>Sản phẩm mới nhất</h1>
+    </div>
+    <div class="news-top-items">
+        <ul>
+            @foreach (var product in data)
+            {
+                var url = "/lo-hoi/" + product.Alias + "-" + product.ID;
+
+                <li title="@product.Name"><a href="@url">@product.Name</a></li>
+            }
+
+        </ul>
+    </div>
+</div>

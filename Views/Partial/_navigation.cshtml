@@ -1,0 +1,76 @@
+﻿
+@model IEnumerable<LoHoiDaiLuc.Web.Models.MenuGroupViewModel>
+@{
+    var postCate = (IEnumerable<LoHoiDaiLuc.Web.Models.PostCategoryViewModel>)ViewBag.postCateDetail;
+    var productCate = (IEnumerable<LoHoiDaiLuc.Web.Models.ProductCategoryViewModel>)ViewBag.productCateDetail;
+}
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <h1>Lò hơi Đại Lực</h1>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+            <li><a title="Trang chủ" href="/">Trang chủ</a></li>
+            @foreach (var menuGroup in Model)
+            {
+                var posts = postCate.Where(x => x.Status == true);
+                var products = productCate.Where(x => x.Status == true);
+                if (menuGroup.ID == 2)
+                {   
+                    <li class="dropdown">
+                        <a class="dropdown-toggle hvr-underline-from-left" title="@menuGroup.GroupName"  href="@menuGroup.Alias">@menuGroup.GroupName<span class="caret"></span></a>
+                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                            @foreach (var product in products.Where(x=>x.ParentID==null))
+                            {
+                                var childList = products.Where(x => x.ParentID == product.ID);
+                                if (childList.Count() > 0)
+                                {
+                                    <li class="dropdown-submenu">
+                                        <a class="sub" tabindex="-1"  href="/lo-hoi/@product.cateAlias-pc-@product.ID">@product.cateName</a>
+                                        <ul class="dropdown-menu">
+                                            @foreach (var child in childList)
+                                            {
+                                                <li ><a href="/lo-hoi/@child.cateAlias-pc-@child.ID">@child.cateName</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+
+                                <li><a  href="/lo-hoi/@product.cateAlias-pc-@product.ID">@product.cateName</a></li>
+                                }
+                            }   
+                        </ul>
+                    </li>
+
+                }
+                else if (menuGroup.ID == 5 )
+                {
+                    <li class="dropdown">
+                        <a class="dropdown-toggle hvr-underline-from-left"  title="@menuGroup.GroupName" href="/@menuGroup.Alias">@menuGroup.GroupName<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @foreach (var item in posts)
+                            {
+                                <li><a href="/bai-viet/@item.cateAlias-pos-@item.ID">@item.cateName</a></li>
+                            }
+                        </ul>
+                    </li>
+
+                }
+                else
+                {
+                    <li><a href="/trang?p=@menuGroup.Alias" title="@menuGroup.GroupName" class="hvr-underline-from-left">@menuGroup.GroupName</a></li>
+                }
+
+            }
+
+
+        </ul>
+    </div>
+</nav>

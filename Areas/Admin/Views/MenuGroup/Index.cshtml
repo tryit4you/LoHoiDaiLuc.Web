@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Quản lý nhóm menu";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="~/Assets/Admin/dist/js/controller/menuGroupController.js"></script>
+
+}
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <a href="#" class="btn btn-success" id="btnAddNewGroup"><i class="fa fa-plus"> </i>Thêm mới</a>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <div class="form-group form-inline">
+                <input type="text" name="txtSearch" value="" id="txtSearchGroup" placeholder="Nhập tên" class="form-control" />
+                <select id="txtSelectlistGroup" name="cateName" data-val="true" class="form-control">
+                    <option value="">Tất cả</option>
+                    <option value="1">Kích hoạt</option>
+                    <option value="0">Khóa</option>
+                </select>
+                <input type="submit" name="search" value="Tìm kiếm" id="btn-SearchGroup" class="btn btn-primary" />
+                <a class="btn btn-default" id="btn-refreshGroup"><i class="fa fa-refresh"></i></a>
+                <button class="btn btn-danger" id="btn-DeletemultiGroup"><i class="fa fa-trash"></i>Xóa</button>
+            </div>
+        </div>
+    </div>
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><label><input type="checkbox" name="selectAll" value="" id="selectAllGroup" />Chọn tất cả</label></th>
+                <th>Tên nhóm</th>
+                <th>Link</th>
+                <th>Thứ tự hiển thị</th>
+                <th>Trạng thái</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody id="tbDataGroup"></tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="pagination" id="paginationGroup">
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <p>Trang <mark><span id="currentpageGroup"></span></mark> tổng số <mark><span id="totalpageGroup"></span></mark> trang</p>
+        </div>
+    </div>
+</div>
+
+<script id="data-templateGroup" type="x-tmpl-mustache">
+    <tr>
+        <td><input type="checkbox" name="selectAll" class="selectedItem" data-id="{{ID}}" value="" /></td>
+        <td>{{GroupName}}</td>
+        <td>{{Link}}</td>
+        <td><input type="number" name="DisplayOrder" style="border:none;width:40px" class="displayOrderInput" data-id="{{ID}}" value="{{DisplayOrder}}" /></td>
+        <td>{{{Status}}}</td>
+        <td>
+            <button class="btn btn-default btn-editGroup" data-id="{{ID}}"><i class="fa fa-pencil-square-o"></i></button>
+            <button class="btn btn-danger btn-deleteGroup" data-id="{{ID}}"><i class="fa fa-window-close-o"></i></button>
+        </td>
+    </tr>
+</script>
+
+<!--modal viewdetail-->
+<!--modal create popup-->
+
+<div class="modal fade" id="modalGroupMenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span id="modal-title"></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="frmSaveDataGroup">
+                    <input type="hidden" id="txtIdGroup">
+                    <div class="form-group">
+                        <label for="GroupName">Tên nhóm</label>
+                        <input type="text" class="form-control" name="GroupName" id="txtGroupName">
+                        <span class="validate"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="SeoTitleGroup">Tiêu đề SEO</label>
+                        <input type="text" class="form-control" disabled name="SeoTitleGroup" id="txtSeoTitleGroup">
+                    </div>
+                    <div class="form-group">
+                        <label for="DisplayOrderGroup">Thứ tự hiển thị</label>
+                        <input type="number" class="form-control" name="DisplayOrderGroup" id="txtDisplayOrderGroup">
+                    </div>
+                    <div class="form-group">
+                        <label for="Link">Link</label>
+                        <input type="text" class="form-control" disabled name="Link" id="txtLinkGroup">
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" id="ckStatusGroup" />Kích hoạt</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btnSaveGroup">Thêm mới</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿@model PagedList.IPagedList<LoHoiDaiLuc.Web.Models.ProductViewModel>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Tất cả các sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section content_right{
+
+
+    @{ Html.RenderAction("getNewsTop", "Post");}
+    @{ Html.RenderAction("GetNewProduct", "Product");}
+    <div class="facebook-page">
+        <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-width="350" data-height="222" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+    </div>
+
+}
+    <div class="tintuc">
+        <div class="root-site">
+            <span><a href="">Trang chủ</a><i class="fa fa-angle-double-right"> </i><a href="">Tin tức</a> </span>
+        </div>
+        <div class="tintuc-items-header">
+            <h1>Tất cả sản phẩm lò hơi</h1>
+        </div>
+        @foreach (var product in Model)
+    {
+        var url = "/lo-hoi/" + product.Alias + "-" + product.ID;
+        <div class="tintuc-items">
+            <a href="@url"><img src="@product.Image" alt="@product.Name" /></a>
+            <div class="tintuc-items-desc">
+                <a href="@url" title="@product.Name"><h1>@product.Name</h1></a>
+            
+
+                <i class="fa fa-clock-o"> @product.CreatedDate.Value.Date.ToString("dd/MM/yyyy")</i>
+                <p> @product.Description </p>
+            </div>
+        </div>
+}
+        <div class="pagedlist">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) : @Model.PageCount </div>
+
+        <div class="pagination">@Html.PagedListPager(Model, page => Url.RouteUrl("tatcalohoi", new { page }))</div>
+
+    </div>

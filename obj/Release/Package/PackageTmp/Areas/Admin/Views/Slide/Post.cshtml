@@ -1,0 +1,101 @@
+﻿
+@model LoHoiDaiLuc.Models.Models.Slide
+
+@{
+    ViewBag.Title = "Tạo mới slide";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="~/Assets/Admin/dist/js/controller/slideController.js"></script>
+    <script>
+          $('#btnSelectImage').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#txtImages').val(url);
+                $("#txtSlideImg").attr('src', url);
+            };
+            finder.popup();
+        });
+        var editor = CKEDITOR.replace('txtContent', {
+            customConfig: '/Assets/Admin/dist/js/plugins/ckeditor/config.js'
+        });
+        var des = CKEDITOR.replace('txtDescription', {
+            customConfig: '/Assets/Admin/dist/js/plugins/ckeditor/config.js'
+        });
+        $(document).ready(function () {
+            $('#checkStatus').prop('checked', true);
+        });
+        var hotdate = $('.btn-success').val();
+    </script>
+}
+<h2 class="text-center">Thêm mới Slide</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @id = "txtName" })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<a href="#" id="btnSelectImage" class="btn btn-primary"><i class="fa fa-upload"></i></a>*@
+    @*@Html.HiddenFor(model => model.Alias, new { @class = "form-control", @id = "txtSeoTitle" })*@
+    <div class="col-md-offset-2 Avartar">
+        <img height="100" id="txtSlideImg" />
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-6 col-md-offset-2">
+            @Html.HiddenFor(model => model.Image, new { @class = "form-control", @id = "txtImages" })
+            <a href="#" class="btn btn-default" id="btnSelectImage"><i class="fa fa-photo"></i>Chọn hình</a>
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @id = "txtDescription" })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Content, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @id = "txtContent" })
+            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DisplayOrder, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.DisplayOrder, new { @type = "number", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.CheckBoxFor(model => model.Status, new { @id = "checkStatus" })
+            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Thêm mới " class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Về trang trước", "Index")
+</div>

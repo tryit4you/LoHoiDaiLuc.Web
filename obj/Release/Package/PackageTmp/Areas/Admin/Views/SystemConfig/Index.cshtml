@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "<i class='fa fa-gears' style='color:red'> </i>" + "- Quản lý thư cấu hình";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="~/Assets/Admin/dist/js/controller/systemConfigController.js"></script>
+}
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <a href="#" class="btn btn-success" id="btnAddNew"><i class="fa fa-plus"> </i>Thêm mới</a>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="form-group form-inline">
+            <input type="text" name="txtSearch" value="" id="txtSearch" placeholder="Nhập tên" class="form-control" />
+
+            <input type="submit" name="search" value="Tìm kiếm" id="btn-Search" class="btn btn-primary" />
+            <a class="btn btn-default" id="btn-refresh"><i class="fa fa-refresh"></i></a>
+            <button class="btn btn-danger" id="btn-Deletemulti"><i class="fa fa-trash"></i>Xóa</button>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><label><input type="checkbox" name="selectAll" value="" id="selectAll" />Chọn tất cả</label></th>
+                <th>Mã </th>
+                <th>Giá trị số </th>
+                <th>Giá trị chữ</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody id="tbData"></tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="pagination" id="pagination">
+            </div>
+        </div>
+        <div class="col-md-6 text-center">
+            <p>Trang <mark><span id="currentpage"></span></mark> tổng số <mark><span id="totalpage"></span></mark> trang</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script id="data-template" type="x-tmpl-mustache">
+    <tr>
+        <td><input type="checkbox" name="selectAll" class="selectedItem" data-id="{{ID}}" value="" /></td>
+        <td>{{Code}}</td>
+        <td>{{{ValueInt}}}</td>
+        <td>{{{ValueString}}}</td>
+        <td>
+            <button class="btn btn-default btn-edit" data-id="{{ID}}"><i class="fa fa-pencil-square-o"></i></button>
+            <button class="btn btn-danger btn-delete" data-id="{{ID}}"><i class="fa fa-window-close-o"></i></button>
+        </td>
+    </tr>
+</script>
+
+
+
+<!--modal viewdetail-->
+<!--modal create popup-->
+
+<div class="modal fade" id="modalVideo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span id="modal-title"></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="frmSaveData">
+                    <input type="hidden" id="txtId">
+                    <div class="form-group">
+                        <label for="Code">Mã</label>
+                        <input type="text" class="form-control" name="Code" id="txtCode">
+                        <span class="validate"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ValuesInt">Giá trị kiểu số</label>
+                        <input type="number" class="form-control" name="ValuesInt" id="txtValuesInt">
+                    </div>
+                    <div class="form-group">
+                        <label for="ValuesString">Giá trị kiểu chữ</label>
+                        <textarea  class="form-control" name="ValuesValuesString" id="txtValuesString"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+ 
